@@ -1,8 +1,12 @@
-/* 自定义样式：页脚固定到页面最底部并居中 */
+/* 自定义样式（主题升级安全：此文件自动追加在主题样式之后） */
+
+/* 主内容区纵向撑满容器，页脚才能固定到视口底部 */
 main.main {
     flex-grow: 1;
+    align-self: stretch;
 }
 
+/* 页脚：贴底 + 居中 */
 footer.site-footer {
     margin-top: auto;
     text-align: center;
@@ -12,4 +16,14 @@ footer.site-footer {
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+/* 夜间/日间切换按钮：紧跟在菜单列表下方，不推到侧栏最底部 */
+#main-menu li.menu-bottom-section {
+    margin-top: 0;
+}
+
+#dark-mode-toggle {
+    margin-top: 0;
+    padding-top: var(--spacing-sm);
 }
