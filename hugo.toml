@@ -1,0 +1,12 @@
+base_url = "https://huoyuu.github.io/"
+languageCode = "zh-cn"
+defaultContentLanguage = "zh-cn"
+hasCJKLanguage = true
+title = "我的博客"
+theme = "PaperMod"
+
+[params]
+  ShowReadingTime = true
+
+[markup.highlight]
+  style = "dracula"
