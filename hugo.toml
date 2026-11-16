@@ -3,6 +3,7 @@ languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
 hasCJKLanguage = true
 title = "活鱼的小天地"
+copyright = "huoyutianxia"
 theme = "stack"
 
 [params]
