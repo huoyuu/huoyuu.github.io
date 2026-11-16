@@ -2,7 +2,7 @@ base_url = "https://huoyuu.github.io/"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
 hasCJKLanguage = true
-title = "我的博客"
+title = "活鱼的小天地"
 theme = "stack"
 
 [params]
@@ -15,8 +15,9 @@ theme = "stack"
     since = 2026
 
   [params.sidebar]
-    emoji = "✍️"
+    emoji = "🐟"
     subtitle = "记录学习笔记、技术心得与生活随想"
+    avatar = "img/avatar.jpg"
 
   [params.article]
     math = false
