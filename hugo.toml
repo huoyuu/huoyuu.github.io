@@ -3,10 +3,51 @@ languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
 hasCJKLanguage = true
 title = "我的博客"
-theme = "PaperMod"
+theme = "stack"
 
 [params]
-  ShowReadingTime = true
+  mainSections = ["posts"]
+  featuredImageField = "cover.image"
+  defaultFeaturedImage = ""
+  rssFullContent = true
+
+  [params.footer]
+    since = 2026
+
+  [params.sidebar]
+    emoji = "✍️"
+    subtitle = "记录学习笔记、技术心得与生活随想"
+
+  [params.article]
+    math = false
+    toc = true
+    readingTime = true
 
 [markup.highlight]
   style = "dracula"
+
+[markup.goldmark.extensions]
+  passthrough = { enabled = true, delimiters = { block = [], inline = [] } }
+
+[menus]
+  [[menus.main]]
+    identifier = "home"
+    name = "首页"
+    url = "/"
+    weight = 1
+    [menus.main.params]
+      icon = "home"
+  [[menus.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives/"
+    weight = 3
+    [menus.main.params]
+      icon = "archives"
+  [[menus.main]]
+    identifier = "search"
+    name = "搜索"
+    url = "/search/"
+    weight = 4
+    [menus.main.params]
+      icon = "search"
