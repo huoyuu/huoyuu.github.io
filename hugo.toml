@@ -15,7 +15,6 @@ theme = "stack"
     since = 2026
 
   [params.sidebar]
-    emoji = "🐟"
     subtitle = "记录学习笔记、技术心得与生活随想"
     avatar = "img/avatar.jpg"
 
