@@ -8,10 +8,10 @@ lastmod: 2026-11-17T16:05:00+08:00
 
 ## 📮 联系活鱼
 
-- GitHub：[huoyuu](https://github.com/huoyuu)
-- 邮箱：[huoyutianxia@gmail.com](mailto:huoyutianxia@gmail.com)
 - 微信：huoyu_114514
 - QQ：934054949
+- GitHub：[huoyuu](https://github.com/huoyuu)
+- 邮箱：[huoyutianxia@gmail.com](mailto:huoyutianxia@gmail.com)
 
 ## 💬 关于本站
 
