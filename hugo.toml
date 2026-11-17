@@ -52,3 +52,26 @@ theme = "stack"
     weight = 4
     [menus.main.params]
       icon = "search"
+  [[menus.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 5
+    [menus.main.params]
+      icon = "user"
+
+  [[menus.social]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/huoyuu"
+    weight = 1
+    [menus.social.params]
+      icon = "brand-github"
+      newTab = true
+  [[menus.social]]
+    identifier = "email"
+    name = "Email"
+    url = "mailto:huoyutianxia@gmail.com"
+    weight = 2
+    [menus.social.params]
+      icon = "user"
