@@ -1,0 +1,4 @@
+{{ $lastmod := .Page.Lastmod }}
+{{ if not $lastmod.IsZero }}
+<span>最后修改：{{ $lastmod.Format "2006-01-02 15:04" }}</span>
+{{ end }}
