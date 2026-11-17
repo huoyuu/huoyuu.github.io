@@ -19,6 +19,10 @@ theme = "stack"
     subtitle = "记录学习笔记、技术心得与生活随想"
     avatar = "img/avatar.jpg"
 
+  [params.dateFormat]
+  published = "2006-01-02 15:04"
+  lastUpdated = "2006-01-02 15:04"
+
   [params.article]
     math = false
     toc = true
