@@ -10,7 +10,6 @@ content:
     type: collection
     path: content/posts
     view:
-      fields: [title, date]
       primary: title
       secondary: date
     fields:
@@ -19,7 +18,7 @@ content:
         type: string
       - name: date
         label: 发布时间
-        type: date
+        type: datetime
       - name: draft
         label: 草稿
         type: boolean
