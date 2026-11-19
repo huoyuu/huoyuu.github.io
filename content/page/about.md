@@ -13,7 +13,7 @@
 
 ## 💬 关于本站
 
-本站建立共耗时三个小时，再次感叹 Vibe Coding 神力。站点基于开源 Hugo 搭建，选用开源的 PaperMod UI，托管在 ~~GitHub Pages~~  CloudFlare pages上，以方便随时访问，版本记录及回溯。
+本站建立共耗时三个小时，再次感叹 Vibe Coding 神力。站点基于开源 Hugo 搭建，选用开源的 PaperMod UI，托管在 ~~GitHub Pages~~  CloudFlare Pages上，以方便随时访问，版本记录及回溯。
 
 已上优选IP，自动切换最优线路，速度提升。
 
