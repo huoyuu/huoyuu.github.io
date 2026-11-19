@@ -37,6 +37,20 @@ content:
       - name: title
         label: 标题
         type: string
+      - name: layout
+        label: 布局
+        type: string
+        default: page
+      - name: url
+        label: URL
+        type: string
+        default: about
+      - name: date
+        label: 创建时间
+        type: datetime
+      - name: lastmod
+        label: 最后修改
+        type: datetime
       - name: body
         label: 内容
         type: rich-text
