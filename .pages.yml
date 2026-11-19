@@ -20,12 +20,11 @@ content:
         type: string
         required: true
       - name: date
-        label: 发布时间（点日历图标选择日期时间）
+        label: 发布时间（点日历图标选择日期）
         type: date
         required: true
         options:
-          time: true
-          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+          format: "yyyy-MM-dd"
       - name: draft
         label: 草稿（勾选后前台不显示）
         type: boolean
@@ -59,14 +58,12 @@ content:
         label: 创建时间
         type: date
         options:
-          time: true
-          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+          format: "yyyy-MM-dd"
       - name: lastmod
         label: 最后修改
         type: date
         options:
-          time: true
-          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+          format: "yyyy-MM-dd"
       - name: body
         label: 内容
         type: rich-text
