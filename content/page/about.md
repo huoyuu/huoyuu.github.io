@@ -1,14 +1,9 @@
 ---
-title: "关于本站"
-layout: "page"
-url: "about"
-date: 2026-11-17T16:05:00+08:00
-lastmod: 2026-11-19T21:30:00+08:00
+title: 关于本站
 ---
-
 ## 📮 联系活鱼
 
-- 微信：huoyu_114514
+- 微信：huoyu_114514 
 - QQ：934054949
 - GitHub：[huoyuu](https://github.com/huoyuu)
 - 邮箱：[huoyutianxia@gmail.com](mailto:huoyutianxia@gmail.com)
