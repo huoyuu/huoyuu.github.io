@@ -20,11 +20,8 @@ content:
         type: string
         required: true
       - name: date
-        label: 发布时间（点日历图标选择日期）
-        type: date
-        required: true
-        options:
-          format: "yyyy-MM-dd"
+        label: 发布时间（请勿改动，格式 2026-11-19T21:59:22+08:00）
+        type: string
       - name: draft
         label: 草稿（勾选后前台不显示）
         type: boolean
@@ -55,15 +52,11 @@ content:
         type: string
         default: about
       - name: date
-        label: 创建时间
-        type: date
-        options:
-          format: "yyyy-MM-dd"
+        label: 创建时间（勿改，格式 2026-11-17T16:05:00+08:00）
+        type: string
       - name: lastmod
-        label: 最后修改
-        type: date
-        options:
-          format: "yyyy-MM-dd"
+        label: 最后修改（勿改，格式 2026-11-19T22:00:00+08:00）
+        type: string
       - name: body
         label: 内容
         type: rich-text
