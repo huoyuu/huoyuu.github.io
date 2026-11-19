@@ -50,13 +50,6 @@ theme = "stack"
     [menus.main.params]
       icon = "archives"
   [[menus.main]]
-    identifier = "search"
-    name = "搜索"
-    url = "/search/"
-    weight = 4
-    [menus.main.params]
-      icon = "search"
-  [[menus.main]]
     identifier = "about"
     name = "关于"
     url = "/about/"
