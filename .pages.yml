@@ -17,11 +17,16 @@ content:
       - name: title
         label: 标题
         type: string
+        required: true
       - name: date
-        label: 发布时间
-        type: datetime
+        label: 发布时间（点日历图标选择日期时间）
+        type: date
+        required: true
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
       - name: draft
-        label: 草稿
+        label: 草稿（勾选后前台不显示）
         type: boolean
         default: false
       - name: body
@@ -47,10 +52,16 @@ content:
         default: about
       - name: date
         label: 创建时间
-        type: datetime
+        type: date
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
       - name: lastmod
         label: 最后修改
-        type: datetime
+        type: date
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
       - name: body
         label: 内容
         type: rich-text
