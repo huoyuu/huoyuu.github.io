@@ -32,7 +32,7 @@ content:
     label: 关于本站
     type: file
     path: content/page/about.md
-    format: toml-frontmatter
+    format: yaml-frontmatter
     fields:
       - name: title
         label: 标题
