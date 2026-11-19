@@ -1,14 +1,14 @@
-media: /static/img
+media:
+  name: images
+  label: 图片库
+  input: static/img
+  output: /img
+
 content:
   - name: posts
     label: 文章
     type: collection
     path: content/posts
-    filename:
-      fields:
-        - name: slug
-          label: 文件名
-          type: string
     view:
       fields: [title, date]
       primary: title
@@ -39,8 +39,3 @@ content:
       - name: body
         label: 内容
         type: rich-text
-
-  - name: images
-    label: 图片库
-    type: media
-    path: static/img
