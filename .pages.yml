@@ -9,6 +9,7 @@ content:
     label: 文章
     type: collection
     path: content/posts
+    format: toml-frontmatter
     view:
       primary: title
       secondary: date
@@ -31,6 +32,7 @@ content:
     label: 关于本站
     type: file
     path: content/page/about.md
+    format: toml-frontmatter
     fields:
       - name: title
         label: 标题
