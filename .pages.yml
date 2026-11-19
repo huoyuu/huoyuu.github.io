@@ -1,0 +1,46 @@
+media: /static/img
+content:
+  - name: posts
+    label: 文章
+    type: collection
+    path: content/posts
+    filename:
+      fields:
+        - name: slug
+          label: 文件名
+          type: string
+    view:
+      fields: [title, date]
+      primary: title
+      secondary: date
+    fields:
+      - name: title
+        label: 标题
+        type: string
+      - name: date
+        label: 发布时间
+        type: date
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: false
+      - name: body
+        label: 正文
+        type: rich-text
+
+  - name: about
+    label: 关于本站
+    type: file
+    path: content/page/about.md
+    fields:
+      - name: title
+        label: 标题
+        type: string
+      - name: body
+        label: 内容
+        type: rich-text
+
+  - name: images
+    label: 图片库
+    type: media
+    path: static/img
