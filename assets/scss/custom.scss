@@ -27,3 +27,156 @@ footer.site-footer {
     margin-top: 0;
     padding-top: var(--spacing-sm);
 }
+
+/* ===== 评论区 ===== */
+.cm {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--card-separator-color, rgba(128, 128, 128, 0.18));
+
+    .cm-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin: 0 0 0.8rem;
+        color: var(--card-text-color-main);
+    }
+
+    .cm-count {
+        font-size: 0.95rem;
+        color: var(--card-text-color-secondary);
+        font-weight: 400;
+    }
+
+    .cm-empty {
+        color: var(--card-text-color-secondary);
+        font-size: 0.92rem;
+        padding: 0.6rem 0;
+    }
+
+    .cm-item {
+        padding: 0.9rem 0;
+        border-bottom: 1px solid var(--card-separator-color, rgba(128, 128, 128, 0.12));
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .cm-item--reply {
+        margin-left: 1.4rem;
+        padding-left: 0.9rem;
+        border-left: 2px solid var(--card-separator-color, rgba(128, 128, 128, 0.2));
+        border-bottom: none;
+    }
+
+    .cm-head {
+        display: flex;
+        align-items: baseline;
+        gap: 0.6rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .cm-name {
+        font-weight: 600;
+        font-size: 0.94rem;
+        color: var(--card-text-color-main);
+    }
+
+    .cm-time {
+        font-size: 0.78rem;
+        color: var(--card-text-color-secondary);
+    }
+
+    .cm-body {
+        font-size: 0.94rem;
+        line-height: 1.65;
+        color: var(--card-text-color-main);
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .cm-tools {
+        margin-top: 0.35rem;
+    }
+
+    .cm-linkbtn {
+        background: none;
+        border: none;
+        padding: 0 0.2rem;
+        font-size: 0.82rem;
+        color: var(--accent-color);
+        cursor: pointer;
+        text-decoration: underline;
+
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+
+    .cm-form {
+        margin-top: var(--spacing-md);
+    }
+
+    .cm-field {
+        margin-bottom: 0.7rem;
+    }
+
+    .cm-input,
+    .cm-textarea {
+        width: 100%;
+        box-sizing: border-box;
+        background: var(--card-background);
+        color: var(--card-text-color-main);
+        border: 1px solid var(--card-separator-color, rgba(128, 128, 128, 0.25));
+        border-radius: 10px;
+        padding: 0.65rem 0.8rem;
+        font-size: 0.94rem;
+        font-family: inherit;
+        outline: none;
+
+        &:focus {
+            border-color: var(--accent-color);
+        }
+    }
+
+    .cm-textarea {
+        min-height: 100px;
+        resize: vertical;
+        line-height: 1.6;
+    }
+
+    .cm-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+    }
+
+    .cm-reply-hint {
+        font-size: 0.85rem;
+        color: var(--card-text-color-secondary);
+    }
+
+    .cm-submit {
+        margin-left: auto;
+        background: var(--accent-color);
+        color: var(--accent-color-text);
+        border: none;
+        border-radius: 10px;
+        padding: 0.55rem 1.4rem;
+        font-size: 0.92rem;
+        font-family: inherit;
+        cursor: pointer;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 0.85;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+    }
+}
