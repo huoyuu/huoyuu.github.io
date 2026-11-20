@@ -15,7 +15,7 @@ date: 2026-11-20
 
 ## 2026-11-19
 
-- 博客从 GitHub Pages **迁移到 Cloudflare Pages**，启用主域名 `huoyuu.top`
+- 本站从 GitHub Pages **迁移到 Cloudflare Pages**，启用主域名 `huoyuu.top`
 - 用 Cloudflare Worker 做反向代理 + 优选线路，改善国内访问速度
 - 文章支持**标签**和**分类**
 - 支持**删除文章**、**重命名文章链接**
