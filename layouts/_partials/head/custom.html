@@ -3,6 +3,20 @@
 <link rel="icon" type="image/png" sizes="128x128" href="/img/favicon-128.png">
 <link rel="apple-touch-icon" href="/img/favicon-128.png">
 
+{{- /* 分享缩略图（每篇文章在 static/og/<文件名>.png，没有则用默认图） */ -}}
+{{- $og := "/og/default.png" -}}
+{{- if and (eq .Kind "page") (.File) -}}
+  {{- $candidate := printf "static/og/%s.png" .File.BaseFileName -}}
+  {{- if fileExists $candidate -}}
+    {{- $og = printf "/og/%s.png" .File.BaseFileName -}}
+  {{- end -}}
+{{- end }}
+<meta property="og:image" content="{{ $og | absURL }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ $og | absURL }}">
+
 {{- /* 设备标识：给同一台设备生成稳定 ID（cookie + 本地存储），并附一个轻量指纹做兜底 */ -}}
 <script>
 (function () {
