@@ -2,3 +2,57 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="128x128" href="/img/favicon-128.png">
 <link rel="apple-touch-icon" href="/img/favicon-128.png">
+
+{{- /* 设备标识：给同一台设备生成稳定 ID（cookie + 本地存储），并附一个轻量指纹做兜底 */ -}}
+<script>
+(function () {
+  try {
+    var ck = document.cookie || "";
+    var m = /(?:^|;\s*)vid=([^;]+)/.exec(ck);
+    var vid = m ? decodeURIComponent(m[1]) : "";
+    var ls = "";
+    try { ls = localStorage.getItem("vid") || ""; } catch (e) {}
+
+    if (!vid) {
+      vid = ls || (window.crypto && crypto.randomUUID ? crypto.randomUUID() : "v" + Date.now().toString(36) + Math.random().toString(36).slice(2, 10));
+      document.cookie = "vid=" + encodeURIComponent(vid) + "; path=/; max-age=31536000; SameSite=Lax";
+      try { localStorage.setItem("vid", vid); } catch (e) {}
+    } else if (!ls) {
+      try { localStorage.setItem("vid", vid); } catch (e) {}
+    }
+
+    var fp = "";
+    try { fp = localStorage.getItem("fp") || ""; } catch (e) {}
+    if (!fp) {
+      var s = [
+        navigator.userAgent,
+        navigator.language || "",
+        screen.width + "x" + screen.height,
+        screen.colorDepth,
+        new Date().getTimezoneOffset(),
+        navigator.hardwareConcurrency || 0,
+        navigator.deviceMemory || 0,
+        navigator.maxTouchPoints || 0
+      ].join("|");
+      try {
+        var c = document.createElement("canvas");
+        var x = c.getContext("2d");
+        x.textBaseline = "top";
+        x.font = "14px Arial";
+        x.fillStyle = "#f60";
+        x.fillRect(0, 0, 100, 30);
+        x.fillStyle = "#069";
+        x.fillText("huoyuu.top", 2, 2);
+        s += "|" + c.toDataURL().slice(-64);
+      } catch (e) {}
+      var h = 0;
+      for (var i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) >>> 0; }
+      fp = h.toString(36);
+      try { localStorage.setItem("fp", fp); } catch (e) {}
+    }
+    if (!/(?:^|;\s*)fp=/.test(ck)) {
+      document.cookie = "fp=" + encodeURIComponent(fp) + "; path=/; max-age=31536000; SameSite=Lax";
+    }
+  } catch (e) {}
+})();
+</script>
