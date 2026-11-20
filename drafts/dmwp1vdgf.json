@@ -1,0 +1,13 @@
+{
+  "type": "post",
+  "title": "草稿测试标题",
+  "body": "这是草稿正文\n第二行",
+  "tags": [
+    "测试"
+  ],
+  "categories": [],
+  "archived": false,
+  "targetPath": "",
+  "date": "",
+  "updated": "2026-11-20T14:04:02.655Z"
+}
