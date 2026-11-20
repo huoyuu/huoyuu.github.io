@@ -43,6 +43,13 @@ theme = "stack"
     [menus.main.params]
       icon = "home"
   [[menus.main]]
+    identifier = "posts"
+    name = "文章"
+    url = "/posts/"
+    weight = 2
+    [menus.main.params]
+      icon = "hash"
+  [[menus.main]]
     identifier = "archives"
     name = "归档"
     url = "/archives/"
@@ -51,11 +58,18 @@ theme = "stack"
       icon = "archives"
   [[menus.main]]
     identifier = "about"
-    name = "关于"
+    name = "关于本站"
     url = "/about/"
     weight = 5
     [menus.main.params]
       icon = "user"
+  [[menus.main]]
+    identifier = "changelog"
+    name = "更新日志"
+    url = "/changelog/"
+    weight = 6
+    [menus.main.params]
+      icon = "clock"
 
   [[menus.social]]
     identifier = "github"
