@@ -1,0 +1,149 @@
+{{- if and (eq .Kind "page") (eq .Section "posts") -}}
+<section id="comments" class="cm" data-page="{{ .RelPermalink }}">
+    <h2 class="cm-title">评论 <span class="cm-count" id="cm-count"></span></h2>
+    <div class="cm-list" id="cm-list"><p class="cm-empty">加载中…</p></div>
+
+    <form class="cm-form" id="cm-form" autocomplete="off">
+        <div class="cm-field">
+            <input class="cm-input" id="cm-name" maxlength="20" placeholder="你的昵称" required>
+        </div>
+        <div class="cm-field">
+            <textarea class="cm-textarea" id="cm-content" maxlength="1000" placeholder="说点什么…（支持换行，不支持 HTML）" required></textarea>
+        </div>
+        <div class="cm-actions">
+            <span class="cm-reply-hint" id="cm-reply-hint" hidden>
+                回复 <b id="cm-reply-name"></b>
+                <button type="button" class="cm-linkbtn" id="cm-cancel-reply">取消</button>
+            </span>
+            <button type="submit" class="cm-submit" id="cm-submit">发表评论</button>
+        </div>
+    </form>
+</section>
+
+<script>
+(function () {
+    var root = document.getElementById("comments");
+    if (!root) return;
+    var page = root.getAttribute("data-page");
+    var listEl = document.getElementById("cm-list");
+    var countEl = document.getElementById("cm-count");
+    var form = document.getElementById("cm-form");
+    var nameEl = document.getElementById("cm-name");
+    var contentEl = document.getElementById("cm-content");
+    var replyHint = document.getElementById("cm-reply-hint");
+    var replyName = document.getElementById("cm-reply-name");
+    var cancelReply = document.getElementById("cm-cancel-reply");
+    var submitBtn = document.getElementById("cm-submit");
+    var parentId = null;
+
+    nameEl.value = localStorage.getItem("cm_name") || "";
+
+    function fmt(iso) {
+        var d = new Date(iso);
+        if (isNaN(d.getTime())) return "";
+        var p = function (n) { return n < 10 ? "0" + n : "" + n; };
+        return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+    }
+
+    function el(tag, cls, text) {
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (text != null) e.textContent = text;
+        return e;
+    }
+
+    function renderItem(c, isReply) {
+        var wrap = el("div", "cm-item" + (isReply ? " cm-item--reply" : ""));
+        var head = el("div", "cm-head");
+        head.appendChild(el("span", "cm-name", c.name));
+        head.appendChild(el("span", "cm-time", fmt(c.created_at)));
+        wrap.appendChild(head);
+        var body = el("div", "cm-body");
+        body.textContent = c.content;
+        wrap.appendChild(body);
+        if (!isReply) {
+            var tools = el("div", "cm-tools");
+            var btn = el("button", "cm-linkbtn", "回复");
+            btn.type = "button";
+            btn.addEventListener("click", function () {
+                parentId = c.id;
+                replyName.textContent = c.name;
+                replyHint.hidden = false;
+                contentEl.focus();
+            });
+            tools.appendChild(btn);
+            wrap.appendChild(tools);
+        }
+        return wrap;
+    }
+
+    function render(list) {
+        listEl.innerHTML = "";
+        var tops = list.filter(function (c) { return !c.parent_id; });
+        var kids = {};
+        list.forEach(function (c) {
+            if (c.parent_id) {
+                (kids[c.parent_id] = kids[c.parent_id] || []).push(c);
+            }
+        });
+        countEl.textContent = list.length ? "(" + list.length + ")" : "";
+        if (!tops.length) {
+            listEl.appendChild(el("p", "cm-empty", "还没有评论，来做第一个吧～"));
+            return;
+        }
+        tops.forEach(function (c) {
+            var node = renderItem(c, false);
+            (kids[c.id] || []).forEach(function (k) {
+                node.appendChild(renderItem(k, true));
+            });
+            listEl.appendChild(node);
+        });
+    }
+
+    function load() {
+        fetch("/api/comments?page=" + encodeURIComponent(page))
+            .then(function (r) { return r.json(); })
+            .then(function (d) { render(d.comments || []); })
+            .catch(function () {
+                listEl.innerHTML = "";
+                listEl.appendChild(el("p", "cm-empty", "评论加载失败，稍后刷新试试"));
+            });
+    }
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var name = nameEl.value.trim();
+        var content = contentEl.value.trim();
+        if (!name) { alert("请填写昵称"); return; }
+        if (!content) { alert("评论内容不能为空"); return; }
+        submitBtn.disabled = true;
+        submitBtn.textContent = "发送中…";
+        fetch("/api/comments", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ page: page, name: name, content: content, parentId: parentId })
+        }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+          .then(function (res) {
+              if (!res.ok) throw new Error(res.j.error || "发送失败");
+              localStorage.setItem("cm_name", name);
+              contentEl.value = "";
+              parentId = null;
+              replyHint.hidden = true;
+              load();
+          })
+          .catch(function (err) { alert(err.message); })
+          .finally(function () {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "发表评论";
+          });
+    });
+
+    cancelReply.addEventListener("click", function () {
+        parentId = null;
+        replyHint.hidden = true;
+    });
+
+    load();
+})();
+</script>
+{{- end -}}
