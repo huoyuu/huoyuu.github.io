@@ -10,7 +10,7 @@ date: 2026-11-20
 - 上线**评论区**功能：无需登录，支持留言及回复
 - 新增**更新日志**页面
 - 补上**站点图标**（浏览器标签页、iOS 主屏）
-- 全站强制 **HTTPS**，`www.huoyuu.top` 自动跳转到 `huoyuu.top`
+- 全站强制 **HTTPS加密**，`www.huoyuu.top` 自动跳转到 `huoyuu.top`
 - `robots.txt` 补上 sitemap 声明，方便搜索引擎收录
 
 ## 2026-11-19
