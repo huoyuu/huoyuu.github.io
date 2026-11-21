@@ -1,16 +1,32 @@
 {{- if and (eq .Kind "page") (eq .Section "posts") -}}
-{{- /* 上一篇 / 下一篇 */ -}}
-{{- $prev := .PrevInSection -}}
-{{- $next := .NextInSection -}}
-{{- if or $prev $next }}
+{{- /* 上一篇 / 下一篇：只在同一组内串联（文章只连文章，归档只连归档） */ -}}
+{{- $isArchived := eq .Params.archived true -}}
+{{- $pool := where site.RegularPages "Section" "posts" -}}
+{{- if $isArchived -}}
+  {{- $pool = where $pool "Params.archived" true -}}
+{{- else -}}
+  {{- $pool = where $pool "Params.archived" "ne" true -}}
+{{- end -}}
+{{- $pool = $pool.ByDate.Reverse -}}
+{{- $idx := -1 -}}
+{{- range $i, $p := $pool -}}
+  {{- if eq $p.RelPermalink $.RelPermalink -}}{{- $idx = $i -}}{{- end -}}
+{{- end -}}
+{{- $older := false -}}
+{{- $newer := false -}}
+{{- if ge $idx 0 -}}
+  {{- if lt (add $idx 1) (len $pool) -}}{{- $older = index $pool (add $idx 1) -}}{{- end -}}
+  {{- if gt $idx 0 -}}{{- $newer = index $pool (sub $idx 1) -}}{{- end -}}
+{{- end -}}
+{{- if or $older $newer }}
 <nav class="pn-nav">
-    {{- with $prev }}
+    {{- with $older }}
     <a class="pn-item pn-prev" href="{{ .RelPermalink }}">
         <span class="pn-label">← 上一篇</span>
         <span class="pn-title">{{ .Title }}</span>
     </a>
     {{- else }}<span class="pn-item pn-empty"></span>{{ end }}
-    {{- with $next }}
+    {{- with $newer }}
     <a class="pn-item pn-next" href="{{ .RelPermalink }}">
         <span class="pn-label">下一篇 →</span>
         <span class="pn-title">{{ .Title }}</span>
