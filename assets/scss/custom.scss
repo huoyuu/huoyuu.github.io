@@ -186,8 +186,8 @@ footer.site-footer {
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    margin: var(--spacing-lg) 0 var(--spacing-md);
-    padding-top: var(--spacing-md);
+    margin: var(--spacing-md) 0 var(--spacing-sm);
+    padding-top: var(--spacing-sm);
     border-top: 1px solid var(--card-separator-color, rgba(128, 128, 128, 0.18));
 
     .pn-item {
