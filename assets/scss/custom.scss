@@ -30,7 +30,7 @@ footer.site-footer {
 
 /* ===== 评论区 ===== */
 .cm {
-    margin-top: var(--spacing-lg);
+    margin-top: 0;
     padding-top: var(--spacing-md);
     border-top: 1px solid var(--card-separator-color, rgba(128, 128, 128, 0.18));
 
@@ -186,8 +186,8 @@ footer.site-footer {
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    margin: var(--spacing-md) 0 var(--spacing-sm);
-    padding-top: var(--spacing-sm);
+    margin: 0;
+    padding-top: 4px;
     border-top: 1px solid var(--card-separator-color, rgba(128, 128, 128, 0.18));
 
     .pn-item {
@@ -239,4 +239,8 @@ footer.site-footer {
         margin-right: 2px;
         font-weight: 600;
     }
+}
+/* 文章页：压缩 main 的模块间距（主题默认 40px 太大） */
+body.article-page main.main {
+    gap: 14px;
 }
