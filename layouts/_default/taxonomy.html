@@ -6,13 +6,20 @@
 {{ partial "hi/pagehead" (dict
     "eyebrow" (cond $isCat "CATEGORY" "TAG")
     "title" $title
-    "desc" (printf "共 %d 篇文章" (len $pages))
+    "desc" (cond (gt (len $pages) 0) (printf "共 %d 篇文章" (len $pages)) "这里还没有文章")
 ) }}
 
 <section class="hi-sec">
+    {{- if $pages }}
     <div class="hi-grid">
         {{- range $pages }}{{ partial "hi/post-card" . }}{{ end }}
     </div>
+    {{- else }}
+    <div class="hi-empty">
+        <p class="hi-empty__title">这里还没有文章</p>
+        <p class="hi-empty__desc">该{{ cond $isCat "分类" "标签" }}下的文章可能已被归档或删除。</p>
+    </div>
+    {{- end }}
 </section>
 
 {{ partialCached "footer/footer" . }}
