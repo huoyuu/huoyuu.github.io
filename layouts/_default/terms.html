@@ -1,19 +1,28 @@
 {{ define "main" }}
-{{- $terms := .Data.Terms.Alphabetical -}}
 {{- $isCat := eq .Data.Plural "categories" -}}
 {{- $label := cond $isCat "分类" "标签" -}}
 {{- $unit := cond $isCat "个分类" "个标签" -}}
 
+{{- /* 只列出「还有非归档文章」的条目，避免点进去是空页 */ -}}
+{{- $items := slice -}}
+{{- range .Data.Terms.Alphabetical -}}
+    {{- $termPage := .Page -}}
+    {{- $visible := where .Pages "Params.archived" "ne" true -}}
+    {{- with $visible -}}
+        {{- $items = $items | append (dict "title" $termPage.LinkTitle "url" $termPage.RelPermalink "count" (len .)) -}}
+    {{- end -}}
+{{- end -}}
+
 {{ partial "hi/pagehead" (dict
     "eyebrow" (cond $isCat "CATEGORIES" "TAGS")
     "title" $label
-    "desc" (cond (gt (len $terms) 0) (printf "共 %d %s" (len $terms) $unit) (printf "还没有%s" $label))
+    "desc" (cond (gt (len $items) 0) (printf "共 %d %s" (len $items) $unit) (printf "还没有%s" $label))
 ) }}
 
 <section class="hi-sec">
     <div class="hi-tags">
-        {{- range $terms }}
-        <a class="hi-tag hi-tag--lg" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}<em>{{ .Count }}</em></a>
+        {{- range $items }}
+        <a class="hi-tag hi-tag--lg" href="{{ .url }}">{{ .title }}<em>{{ .count }}</em></a>
         {{- end }}
     </div>
 </section>
