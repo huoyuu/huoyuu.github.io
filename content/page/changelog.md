@@ -2,6 +2,8 @@
 title: "更新日志"
 layout: "page"
 url: "changelog"
+eyebrow: "CHANGELOG"
+description: "记录本站的每一次改动"
 date: 2026-11-21
 ---
 
