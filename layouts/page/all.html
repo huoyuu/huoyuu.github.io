@@ -1,11 +1,12 @@
 {{ define "main" }}
 {{- $all := (where site.RegularPages "Section" "posts").ByDate.Reverse -}}
-{{- $archived := where $all "Params.archived" true -}}
+{{- $archivedCount := 0 -}}
+{{- range $all -}}{{- if partial "hi/is-archived" . -}}{{- $archivedCount = add $archivedCount 1 -}}{{- end -}}{{- end -}}
 
 {{ partial "hi/pagehead" (dict
     "eyebrow" "ALL"
     "title" "全部文章"
-    "desc" (printf "共 %d 篇（日记 %d · 归档 %d）" (len $all) (sub (len $all) (len $archived)) (len $archived))
+    "desc" (printf "共 %d 篇（日记 %d · 归档 %d）" (len $all) (sub (len $all) $archivedCount) $archivedCount)
 ) }}
 
 <section class="hi-sec">
