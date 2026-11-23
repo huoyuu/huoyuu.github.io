@@ -1,0 +1,22 @@
+{{ define "main" }}
+{{- $all := (where site.RegularPages "Section" "posts").ByDate.Reverse -}}
+{{- $archived := where $all "Params.archived" true -}}
+
+{{ partial "hi/pagehead" (dict
+    "eyebrow" "ALL"
+    "title" "全部文章"
+    "desc" (printf "共 %d 篇（日记 %d · 归档 %d）" (len $all) (sub (len $all) (len $archived)) (len $archived))
+) }}
+
+<section class="hi-sec">
+    <div class="hi-sec__head">
+        <h2 class="hi-sec__title">按时间倒序</h2>
+        <span class="hi-sec__count">点卡片进入详情，上一篇/下一篇会按「全部」顺序串联</span>
+    </div>
+    <div class="hi-grid">
+        {{- range $all }}{{ partial "hi/post-card" (dict "page" . "from" "all") }}{{ end }}
+    </div>
+</section>
+
+{{ partialCached "footer/footer" . }}
+{{ end }}
