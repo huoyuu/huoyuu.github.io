@@ -1,0 +1,17 @@
+{{ define "main" }}
+{{- $pages := partial "helper/pages.html" . -}}
+
+{{ partial "hi/pagehead" (dict
+    "eyebrow" (default "TAG" .Params.eyebrow)
+    "title" (printf "#%s" .Title)
+    "desc" (printf "共 %d 篇文章" (len $pages))
+) }}
+
+<section class="hi-sec">
+    <div class="hi-grid">
+        {{- range $pages }}{{ partial "hi/post-card" . }}{{ end }}
+    </div>
+</section>
+
+{{ partialCached "footer/footer" . }}
+{{ end }}
