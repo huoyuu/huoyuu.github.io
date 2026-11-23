@@ -1,9 +1,11 @@
 {{ define "main" }}
 {{- $pages := partial "helper/pages.html" . -}}
+{{- $isCat := eq .Data.Plural "categories" -}}
+{{- $title := cond $isCat .Title (printf "#%s" .Title) -}}
 
 {{ partial "hi/pagehead" (dict
-    "eyebrow" (default "TAG" .Params.eyebrow)
-    "title" (printf "#%s" .Title)
+    "eyebrow" (cond $isCat "CATEGORY" "TAG")
+    "title" $title
     "desc" (printf "共 %d 篇文章" (len $pages))
 ) }}
 
