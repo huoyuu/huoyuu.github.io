@@ -1,0 +1,94 @@
+{{ define "main" }}
+{{- $posts := where (where site.RegularPages "Section" "posts") "Params.archived" "ne" true -}}
+{{- $posts = $posts.ByDate.Reverse -}}
+{{- $latest := "" -}}
+{{- with $posts -}}{{- $latest = index . 0 -}}{{- end -}}
+{{- $tagList := slice -}}
+{{- range $name, $term := site.Taxonomies.tags -}}
+    {{- $visible := where $term.Pages "Params.archived" "ne" true -}}
+    {{- with $visible -}}
+        {{- $tagList = $tagList | append (dict "name" $name "url" $term.Page.RelPermalink "count" (len .)) -}}
+    {{- end -}}
+{{- end -}}
+
+<section class="hi-hero">
+    <p class="hi-hero__eyebrow">HUO YU · 个人站点</p>
+    <h1 class="hi-hero__title">{{ site.Title }}</h1>
+    <p class="hi-hero__desc">写点东西，记点日子。</p>
+
+    <div class="hi-stats">
+        <div class="hi-stat"><b>{{ len $posts }}</b><span>篇文章</span></div>
+        {{ with $latest }}
+        <div class="hi-stat"><b>{{ .Date.Format "2006-01-02" }}</b><span>最近更新</span></div>
+        {{ end }}
+        <div class="hi-stat"><b>{{ len $tagList }}</b><span>个标签</span></div>
+    </div>
+
+    <div class="hi-actions">
+        <a class="hi-btn hi-btn--primary" href="{{ "/posts/" | relLangURL }}">看文章</a>
+        <a class="hi-btn" href="{{ "/archives/" | relLangURL }}">归档</a>
+        <a class="hi-btn" href="{{ "/changelog/" | relLangURL }}">更新日志</a>
+        <a class="hi-btn" href="https://message.huoyuu.top/" target="_blank" rel="noopener">留言板</a>
+    </div>
+</section>
+
+{{- with first 3 $posts }}
+<section class="hi-sec">
+    <div class="hi-sec__head">
+        <h2 class="hi-sec__title">最新文章</h2>
+        <a class="hi-sec__more" href="{{ "/posts/" | relLangURL }}">全部 →</a>
+    </div>
+    <div class="hi-grid">
+        {{- range . }}
+        {{- $cover := "" -}}
+        {{- with findRE `<img[^>]+src="[^"]+"` .Content 1 -}}
+            {{- $cover = replaceRE `^.*?src="([^"]+)".*$` "$1" (index . 0) -}}
+        {{- end }}
+        <a class="hi-card" href="{{ .RelPermalink }}">
+            {{- if $cover }}
+            <div class="hi-card__cover" style="background-image:url('{{ $cover }}')"></div>
+            {{- else }}
+            <div class="hi-card__cover hi-card__cover--empty"></div>
+            {{- end }}
+            <div class="hi-card__body">
+                <div class="hi-card__meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></div>
+                <div class="hi-card__title">{{ .Title }}</div>
+                <div class="hi-card__desc">{{ .Summary | plainify | truncate 52 }}</div>
+            </div>
+        </a>
+        {{- end }}
+    </div>
+</section>
+{{- end }}
+
+{{- if gt (len $posts) 3 }}
+<section class="hi-sec">
+    <div class="hi-sec__head">
+        <h2 class="hi-sec__title">更早一些</h2>
+    </div>
+    <div class="hi-list">
+        {{- range after 3 $posts }}
+        <a class="hi-row" href="{{ .RelPermalink }}">
+            <time class="hi-row__date">{{ .Date.Format "01-02" }}</time>
+            <span class="hi-row__title">{{ .Title }}</span>
+        </a>
+        {{- end }}
+    </div>
+</section>
+{{- end }}
+
+{{- with $tagList }}
+<section class="hi-sec">
+    <div class="hi-sec__head">
+        <h2 class="hi-sec__title">标签</h2>
+    </div>
+    <div class="hi-tags">
+        {{- range . }}
+        <a class="hi-tag" href="{{ .url }}">{{ .name }}<em>{{ .count }}</em></a>
+        {{- end }}
+    </div>
+</section>
+{{- end }}
+
+{{- partial "footer/footer" . }}
+{{ end }}
