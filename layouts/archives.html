@@ -1,26 +1,40 @@
 {{ define "body-class" }}template-archives{{ end }}
 {{ define "main" }}
     {{- /* 只显示在后台勾选了「归档」的文章（front matter: archived = true） */ -}}
-    {{ $pages := where .Site.RegularPages "Params.archived" true }}
+    {{- $pages := where .Site.RegularPages "Params.archived" true -}}
+    {{- $pages = $pages.ByDate.Reverse -}}
+
+    {{ partial "hi/pagehead" (dict
+        "eyebrow" "ARCHIVE"
+        "title" "归档"
+        "desc" (cond (gt (len $pages) 0) (printf "共 %d 篇归档文章" (len $pages)) "这里存放不再出现在首页的旧文章")
+    ) }}
 
     {{ if $pages }}
         {{ range $pages.GroupByDate "2006" }}
-        {{ $id := lower (replace .Key " " "-") }}
-        <div class="archives-group" id="{{ $id }}">
-            <h2 class="archives-date section-title"><a href="{{ $.RelPermalink }}#{{ $id }}">{{ .Key }}</a></h2>
-            <div class="article-list--compact">
+        <section class="hi-sec">
+            <div class="hi-sec__head">
+                <h2 class="hi-sec__title">{{ .Key }}</h2>
+                <span class="hi-sec__count">{{ len .Pages }} 篇</span>
+            </div>
+            <div class="hi-list">
                 {{ range .Pages }}
-                    {{ partial "article-list/compact" . }}
+                <a class="hi-row" href="{{ .RelPermalink }}">
+                    <time class="hi-row__date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01-02" }}</time>
+                    <span class="hi-row__title">{{ .Title }}</span>
+                    <span class="hi-row__meta">阅读 {{ .ReadingTime }} 分钟</span>
+                </a>
                 {{ end }}
             </div>
-        </div>
+        </section>
         {{ end }}
     {{ else }}
-        <article class="article">
-            <div class="article-content">
-                <p>还没有归档的文章。在后台编辑文章时勾选「归档」并保存，它就会出现在这里。</p>
+        <section class="hi-sec">
+            <div class="hi-empty">
+                <p class="hi-empty__title">还没有归档的文章</p>
+                <p class="hi-empty__desc">在后台编辑文章时勾选「归档」，它就会被移到这里。</p>
             </div>
-        </article>
+        </section>
     {{ end }}
 
     {{ partialCached "footer/footer" . }}
