@@ -263,7 +263,8 @@ footer.site-footer {
 /* 标签前的 # 号 */
 .article-tags {
     .tag-hash {
-        color: var(--accent-color);
+        color: currentColor;
+        opacity: 0.72;
         margin-right: 2px;
         font-weight: 600;
     }
@@ -688,6 +689,7 @@ body.article-page main.main {
     @include card-style;
     padding: var(--card-padding) 0;
     overflow: hidden;
+    color: var(--card-text-color-main);
 }
 
 .hi-prose {
