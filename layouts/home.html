@@ -35,11 +35,11 @@
 {{- with first 3 $posts }}
 <section class="hi-sec">
     <div class="hi-sec__head">
-        <h2 class="hi-sec__title">最新日记</h2>
-        <a class="hi-sec__more" href="{{ "/posts/" | relLangURL }}">全部 →</a>
+        <h2 class="hi-sec__title">最新文章</h2>
+        <a class="hi-sec__more" href="{{ "/all/" | relLangURL }}">全部 →</a>
     </div>
     <div class="hi-grid">
-        {{- range . }}{{ partial "hi/post-card" . }}{{ end }}
+        {{- range . }}{{ partial "hi/post-card" (dict "page" . "from" "diary") }}{{ end }}
     </div>
 </section>
 {{- end }}
