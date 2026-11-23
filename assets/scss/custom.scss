@@ -788,3 +788,17 @@ body.article-page main.main {
 .pagination .page-link {
     border-radius: 8px;
 }
+/* 归档角标（全部文章页 / 卡片） */
+.hi-card__badge {
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: var(--card-background-selected);
+    color: var(--card-text-color-tertiary);
+    font-size: 1.05rem;
+    letter-spacing: 0;
+}
+
+/* 上一篇 / 下一篇：按来源切换的三种顺序 */
+.pn-nav[hidden] {
+    display: none !important;
+}
