@@ -39,22 +39,7 @@
         <a class="hi-sec__more" href="{{ "/posts/" | relLangURL }}">全部 →</a>
     </div>
     <div class="hi-grid">
-        {{- range . }}
-        {{- $cover := "" -}}
-        {{- with findRE `<img[^>]+src="[^"]+"` .Content 1 -}}
-            {{- $cover = replaceRE `^.*?src="([^"]+)".*$` "$1" (index . 0) -}}
-        {{- end }}
-        <a class="hi-card" href="{{ .RelPermalink }}">
-            {{- if $cover }}
-            <div class="hi-card__cover" style="background-image:url('{{ $cover }}')"></div>
-            {{- end }}
-            <div class="hi-card__body">
-                <div class="hi-card__meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></div>
-                <div class="hi-card__title">{{ .Title }}</div>
-                <div class="hi-card__desc">{{ .Summary | plainify | truncate 52 }}</div>
-            </div>
-        </a>
-        {{- end }}
+        {{- range . }}{{ partial "hi/post-card" . }}{{ end }}
     </div>
 </section>
 {{- end }}
