@@ -1,10 +1,13 @@
 {{- if and (eq .Kind "page") (eq .Section "posts") -}}
 {{- /* 上一篇 / 下一篇：同时生成「全部 / 日记 / 归档」三套顺序，按进入来源(from)自动切换 */ -}}
 {{- $self := .RelPermalink -}}
-{{- $isArchived := eq .Params.archived true -}}
+{{- $isArchived := partial "hi/is-archived" . -}}
 {{- $allPool := (where site.RegularPages "Section" "posts").ByDate.Reverse -}}
-{{- $diaryPool := where $allPool "Params.archived" "ne" true -}}
-{{- $archivePool := where $allPool "Params.archived" true -}}
+{{- $diaryPool := slice -}}
+{{- $archivePool := slice -}}
+{{- range $allPool -}}
+    {{- if partial "hi/is-archived" . -}}{{- $archivePool = $archivePool | append . -}}{{- else -}}{{- $diaryPool = $diaryPool | append . -}}{{- end -}}
+{{- end -}}
 {{- $defaultPool := cond $isArchived "archives" "diary" -}}
 {{- $pools := slice
       (dict "key" "all" "pages" $allPool)
