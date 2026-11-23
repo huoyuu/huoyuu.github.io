@@ -25,7 +25,7 @@ theme = "stack"
   [params.article]
     math = false
     toc = true
-    readingTime = true
+    readingTime = false
 
 [markup.highlight]
   style = "dracula"
@@ -46,7 +46,7 @@ theme = "stack"
       icon = "home"
   [[menus.main]]
     identifier = "posts"
-    name = "文章"
+    name = "日记"
     url = "/posts/"
     weight = 2
     [menus.main.params]
