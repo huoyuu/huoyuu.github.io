@@ -2,6 +2,8 @@
 title: "关于本站"
 layout: "page"
 url: "about"
+eyebrow: "ABOUT"
+description: "一个存放日记、折腾记录和碎碎念的小站"
 date: 2026-11-17
 lastmod: 2026-11-19
 ---
