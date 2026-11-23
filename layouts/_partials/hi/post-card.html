@@ -14,7 +14,7 @@
         <div class="hi-card__meta">
             <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006-01-02" }}</time>
             {{- with $page.Params.tags }}<span class="hi-card__tag">#{{ index . 0 }}</span>{{ end }}
-            {{- if eq $page.Params.archived true }}<span class="hi-card__badge">归档</span>{{ end }}
+            {{- if partial "hi/is-archived" $page }}<span class="hi-card__badge">归档</span>{{ end }}
         </div>
         <div class="hi-card__title">{{ $page.Title }}</div>
         <div class="hi-card__desc">{{ $page.Summary | plainify | truncate 52 }}</div>
