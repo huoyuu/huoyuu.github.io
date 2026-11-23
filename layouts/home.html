@@ -14,10 +14,10 @@
 <section class="hi-hero">
     <p class="hi-hero__eyebrow">HUO YU · 个人站点</p>
     <h1 class="hi-hero__title">{{ site.Title }}</h1>
-    <p class="hi-hero__desc">写点东西，记点日子。</p>
+    <p class="hi-hero__desc">慎终如始，则无败事</p>
 
     <div class="hi-stats">
-        <div class="hi-stat"><b>{{ len $posts }}</b><span>篇文章</span></div>
+        <div class="hi-stat"><b>{{ len $posts }}</b><span>篇日记</span></div>
         {{ with $latest }}
         <div class="hi-stat"><b>{{ .Date.Format "2006-01-02" }}</b><span>最近更新</span></div>
         {{ end }}
@@ -25,7 +25,7 @@
     </div>
 
     <div class="hi-actions">
-        <a class="hi-btn hi-btn--primary" href="{{ "/posts/" | relLangURL }}">看文章</a>
+        <a class="hi-btn hi-btn--primary" href="{{ "/posts/" | relLangURL }}">日记</a>
         <a class="hi-btn" href="{{ "/archives/" | relLangURL }}">归档</a>
         <a class="hi-btn" href="{{ "/changelog/" | relLangURL }}">更新日志</a>
         <a class="hi-btn" href="https://message.huoyuu.top/" target="_blank" rel="noopener">留言板</a>
@@ -35,7 +35,7 @@
 {{- with first 3 $posts }}
 <section class="hi-sec">
     <div class="hi-sec__head">
-        <h2 class="hi-sec__title">最新文章</h2>
+        <h2 class="hi-sec__title">最新日记</h2>
         <a class="hi-sec__more" href="{{ "/posts/" | relLangURL }}">全部 →</a>
     </div>
     <div class="hi-grid">
