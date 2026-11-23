@@ -747,7 +747,9 @@ body.article-page main.main {
 .article-header {
     .article-meta {
         display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
+        align-items: center;
         gap: 8px;
         margin-top: 4px;
 
