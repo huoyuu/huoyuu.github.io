@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{- $eyebrow := "PAGE" -}}
+{{- if eq .RelPermalink "/about/" -}}{{- $eyebrow = "ABOUT" -}}{{- else if eq .RelPermalink "/changelog/" -}}{{- $eyebrow = "CHANGELOG" -}}{{- end -}}
+
+{{ partial "hi/pagehead" (dict
+    "eyebrow" (default $eyebrow .Params.eyebrow)
+    "title" .Title
+    "desc" .Params.description
+) }}
+
+<article class="hi-article">
+    <div class="article-content hi-prose{{ if eq .RelPermalink "/changelog/" }} hi-prose--log{{ end }}">
+        {{ .Content }}
+    </div>
+</article>
+
+{{ partialCached "footer/footer" . }}
+{{ end }}
