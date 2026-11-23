@@ -62,6 +62,20 @@
             </a>
         </li>
         {{ end }}
+
+        {{/* 主题切换按钮：作为菜单项，紧跟在导航按钮之后 */}}
+        {{ if .Site.Params.colorScheme.toggle }}
+            <li id="dark-mode-toggle">
+                {{ partial "helper/icon" "toggle-left" }}
+                {{ partial "helper/icon" "toggle-right" }}
+                <span class="dmt-label">
+                    <span class="dmt-label--dark">深色模式</span>
+                    <span class="dmt-label--light">浅色模式</span>
+                </span>
+            </li>
+        {{ end }}
+
+        {{ if hugo.IsMultilingual }}
         <li class="menu-bottom-section">
             <ol class="menu">
                 {{- $currentLanguageCode := .Language.Name -}}
@@ -81,15 +95,8 @@
                         </select>
                     </li>
                 {{ end }}
-
-                {{ if .Site.Params.colorScheme.toggle }}
-                    <li id="dark-mode-toggle">
-                        {{ partial "helper/icon" "toggle-left" }}
-                        {{ partial "helper/icon" "toggle-right" }}
-                        <span>{{ T "darkMode" }}</span>
-                    </li>
-                {{ end }}
             </ol>
         </li>
+        {{ end }}
     </ol>
 </aside>
