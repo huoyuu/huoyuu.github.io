@@ -1,0 +1,13 @@
+{{- /* 通用页头卡片：eyebrow 小标题、title 主标题、desc 描述、meta 右侧信息（HTML 片段） */ -}}
+<header class="hi-pagehead">
+    {{- with .eyebrow }}
+    <p class="hi-pagehead__eyebrow">{{ . }}</p>
+    {{- end }}
+    <h1 class="hi-pagehead__title">{{ .title }}</h1>
+    {{- with .desc }}
+    <p class="hi-pagehead__desc">{{ . }}</p>
+    {{- end }}
+    {{- with .meta }}
+    <div class="hi-pagehead__meta">{{ . | safeHTML }}</div>
+    {{- end }}
+</header>
