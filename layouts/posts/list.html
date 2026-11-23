@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{- $pages := partial "helper/pages.html" . -}}
+{{- $paginator := .Paginate $pages -}}
+{{- $latest := "" -}}
+{{- with $pages -}}{{- $latest = (index . 0).Date.Format "2006-01-02" -}}{{- end -}}
+
+{{ partial "hi/pagehead" (dict
+    "eyebrow" "POSTS"
+    "title" "文章"
+    "desc" (cond (gt (len $pages) 0) (printf "共 %d 篇 · 最近更新 %s" (len $pages) $latest) "还没有文章")
+) }}
+
+<section class="hi-sec">
+    <div class="hi-grid">
+        {{- range $paginator.Pages }}{{ partial "hi/post-card" . }}{{ end }}
+    </div>
+    {{ partial "pagination.html" . }}
+</section>
+
+{{ partialCached "footer/footer" . }}
+{{ end }}
