@@ -31,7 +31,7 @@
         <span class="pn-label">下一篇 →</span>
         <span class="pn-title">{{ .Title }}</span>
     </a>
-    {{- end }}
+    {{- else }}<span class="pn-item pn-empty"></span>{{ end }}
 </nav>
 {{- end }}
 
