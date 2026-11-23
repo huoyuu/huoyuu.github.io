@@ -47,8 +47,6 @@
         <a class="hi-card" href="{{ .RelPermalink }}">
             {{- if $cover }}
             <div class="hi-card__cover" style="background-image:url('{{ $cover }}')"></div>
-            {{- else }}
-            <div class="hi-card__cover hi-card__cover--empty"></div>
             {{- end }}
             <div class="hi-card__body">
                 <div class="hi-card__meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></div>
