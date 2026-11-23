@@ -19,7 +19,7 @@
             </div>
             <div class="hi-list">
                 {{ range .Pages }}
-                <a class="hi-row" href="{{ .RelPermalink }}">
+                <a class="hi-row" href="{{ .RelPermalink }}?from=archives">
                     <time class="hi-row__date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01-02" }}</time>
                     <span class="hi-row__title">{{ .Title }}</span>
                 </a>
