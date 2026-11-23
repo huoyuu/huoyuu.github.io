@@ -12,7 +12,7 @@
 <section class="hi-sec">
     {{- if $pages }}
     <div class="hi-grid">
-        {{- range $pages }}{{ partial "hi/post-card" . }}{{ end }}
+        {{- range $pages }}{{ partial "hi/post-card" (dict "page" . "from" "diary") }}{{ end }}
     </div>
     {{- else }}
     <div class="hi-empty">
