@@ -6,7 +6,7 @@
 {{ partial "hi/pagehead" (dict
     "eyebrow" (cond $isCat "CATEGORY" "TAG")
     "title" $title
-    "desc" (cond (gt (len $pages) 0) (printf "共 %d 篇文章" (len $pages)) "这里还没有文章")
+    "desc" (cond (gt (len $pages) 0) (printf "共 %d 篇日记" (len $pages)) "这里还没有日记")
 ) }}
 
 <section class="hi-sec">
@@ -16,8 +16,8 @@
     </div>
     {{- else }}
     <div class="hi-empty">
-        <p class="hi-empty__title">这里还没有文章</p>
-        <p class="hi-empty__desc">该{{ cond $isCat "分类" "标签" }}下的文章可能已被归档或删除。</p>
+        <p class="hi-empty__title">这里还没有日记</p>
+        <p class="hi-empty__desc">该{{ cond $isCat "分类" "标签" }}下的日记可能已被归档或删除。</p>
     </div>
     {{- end }}
 </section>
