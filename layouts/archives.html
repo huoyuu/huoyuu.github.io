@@ -1,7 +1,10 @@
 {{ define "body-class" }}template-archives{{ end }}
 {{ define "main" }}
-    {{- /* 只显示在后台勾选了「归档」的文章（front matter: archived = true） */ -}}
-    {{- $pages := where .Site.RegularPages "Params.archived" true -}}
+    {{- /* 归档页：archived=true 或标签带「归档」的文章 */ -}}
+    {{- $pages := slice -}}
+    {{- range where .Site.RegularPages "Section" "posts" -}}
+        {{- if partial "hi/is-archived" . -}}{{- $pages = $pages | append . -}}{{- end -}}
+    {{- end -}}
     {{- $pages = $pages.ByDate.Reverse -}}
 
     {{ partial "hi/pagehead" (dict
