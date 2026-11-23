@@ -487,9 +487,20 @@ body.article-page main.main {
 }
 
 .hi-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 1.15rem;
     letter-spacing: 0.04em;
     color: var(--card-text-color-tertiary);
+}
+
+.hi-card__tag {
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--card-background-selected);
+    font-size: 1.05rem;
+    letter-spacing: 0;
 }
 
 .hi-card__title {
