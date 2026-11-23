@@ -1,11 +1,15 @@
 {{ define "main" }}
-{{- $posts := where (where site.RegularPages "Section" "posts") "Params.archived" "ne" true -}}
+{{- $posts := slice -}}
+{{- range where site.RegularPages "Section" "posts" -}}
+    {{- if not (partial "hi/is-archived" .) -}}{{- $posts = $posts | append . -}}{{- end -}}
+{{- end -}}
 {{- $posts = $posts.ByDate.Reverse -}}
 {{- $latest := "" -}}
 {{- with $posts -}}{{- $latest = index . 0 -}}{{- end -}}
 {{- $tagList := slice -}}
 {{- range $name, $term := site.Taxonomies.tags -}}
-    {{- $visible := where $term.Pages "Params.archived" "ne" true -}}
+    {{- $visible := slice -}}
+    {{- range $term.Pages -}}{{- if not (partial "hi/is-archived" .) -}}{{- $visible = $visible | append . -}}{{- end -}}{{- end -}}
     {{- with $visible -}}
         {{- $tagList = $tagList | append (dict "name" $name "url" $term.Page.RelPermalink "count" (len .)) -}}
     {{- end -}}
