@@ -1,18 +1,22 @@
-{{- /* 文章卡片：自动取正文首图作为封面，无图则不显示封面 */ -}}
+{{- /* 文章卡片：自动取正文首图作为封面，无图则不显示封面。
+       调用方式：partial "hi/post-card" (dict "page" $page "from" "all|diary|archives") */ -}}
+{{- $page := .page | default . -}}
+{{- $from := .from | default "diary" -}}
 {{- $cover := "" -}}
-{{- with findRE `<img[^>]+src="[^"]+"` .Content 1 -}}
+{{- with findRE `<img[^>]+src="[^"]+"` $page.Content 1 -}}
     {{- $cover = replaceRE `^.*?src="([^"]+)".*$` "$1" (index . 0) -}}
 {{- end -}}
-<a class="hi-card" href="{{ .RelPermalink }}">
+<a class="hi-card" href="{{ $page.RelPermalink }}?from={{ $from }}">
     {{- with $cover }}
     <div class="hi-card__cover" style="background-image:url('{{ . }}')"></div>
     {{- end }}
     <div class="hi-card__body">
         <div class="hi-card__meta">
-            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
-            {{- with .Params.tags }}<span class="hi-card__tag">#{{ index . 0 }}</span>{{ end }}
+            <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006-01-02" }}</time>
+            {{- with $page.Params.tags }}<span class="hi-card__tag">#{{ index . 0 }}</span>{{ end }}
+            {{- if eq $page.Params.archived true }}<span class="hi-card__badge">归档</span>{{ end }}
         </div>
-        <div class="hi-card__title">{{ .Title }}</div>
-        <div class="hi-card__desc">{{ .Summary | plainify | truncate 52 }}</div>
+        <div class="hi-card__title">{{ $page.Title }}</div>
+        <div class="hi-card__desc">{{ $page.Summary | plainify | truncate 52 }}</div>
     </div>
 </a>
