@@ -51,6 +51,13 @@ content:
         label: URL
         type: string
         default: about
+      - name: eyebrow
+        label: 页头小标题（英文，如 ABOUT）
+        type: string
+        default: ABOUT
+      - name: description
+        label: 页头简介（一句话）
+        type: string
       - name: date
         label: 创建时间（勿改，格式 2026-11-17T16:05:00+08:00）
         type: string
