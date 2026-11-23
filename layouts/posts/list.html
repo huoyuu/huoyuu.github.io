@@ -5,9 +5,9 @@
 {{- with $pages -}}{{- $latest = (index . 0).Date.Format "2006-01-02" -}}{{- end -}}
 
 {{ partial "hi/pagehead" (dict
-    "eyebrow" "POSTS"
-    "title" "文章"
-    "desc" (cond (gt (len $pages) 0) (printf "共 %d 篇 · 最近更新 %s" (len $pages) $latest) "还没有文章")
+    "eyebrow" "DIARY"
+    "title" "日记"
+    "desc" (cond (gt (len $pages) 0) (printf "共 %d 篇日记 · 最近更新 %s" (len $pages) $latest) "还没有日记")
 ) }}
 
 <section class="hi-sec">
