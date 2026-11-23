@@ -11,8 +11,12 @@
 ) }}
 
 <section class="hi-sec">
+    <div class="hi-sec__head">
+        <h2 class="hi-sec__title">全部日记</h2>
+        <a class="hi-sec__more" href="{{ "/all/" | relLangURL }}">含归档的全部文章 →</a>
+    </div>
     <div class="hi-grid">
-        {{- range $paginator.Pages }}{{ partial "hi/post-card" . }}{{ end }}
+        {{- range $paginator.Pages }}{{ partial "hi/post-card" (dict "page" . "from" "diary") }}{{ end }}
     </div>
     {{ partial "pagination.html" . }}
 </section>
