@@ -1,0 +1,19 @@
+{{ define "main" }}
+{{- $terms := .Data.Terms.Alphabetical -}}
+
+{{ partial "hi/pagehead" (dict
+    "eyebrow" "TAGS"
+    "title" "标签"
+    "desc" (cond (gt (len $terms) 0) (printf "共 %d 个标签" (len $terms)) "还没有标签")
+) }}
+
+<section class="hi-sec">
+    <div class="hi-tags">
+        {{- range $terms }}
+        <a class="hi-tag hi-tag--lg" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}<em>{{ .Count }}</em></a>
+        {{- end }}
+    </div>
+</section>
+
+{{ partialCached "footer/footer" . }}
+{{ end }}
