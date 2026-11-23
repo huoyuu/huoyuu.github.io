@@ -244,3 +244,31 @@ footer.site-footer {
 body.article-page main.main {
     gap: 14px;
 }
+
+/* 侧栏头部：头像缩到菜单按钮大小，站点标题移到头像右侧 */
+.left-sidebar header {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    --sidebar-avatar-size: 40px;
+
+    .site-meta {
+        gap: 0;
+        min-width: 0;
+    }
+
+    .site-name {
+        font-size: 1.6rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @include respond(2xl) {
+            font-size: 1.8rem;
+        }
+    }
+
+    .site-description:empty {
+        display: none;
+    }
+}
