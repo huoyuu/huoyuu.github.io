@@ -1,10 +1,13 @@
 {{ define "main" }}
 {{- $terms := .Data.Terms.Alphabetical -}}
+{{- $isCat := eq .Data.Plural "categories" -}}
+{{- $label := cond $isCat "分类" "标签" -}}
+{{- $unit := cond $isCat "个分类" "个标签" -}}
 
 {{ partial "hi/pagehead" (dict
-    "eyebrow" "TAGS"
-    "title" "标签"
-    "desc" (cond (gt (len $terms) 0) (printf "共 %d 个标签" (len $terms)) "还没有标签")
+    "eyebrow" (cond $isCat "CATEGORIES" "TAGS")
+    "title" $label
+    "desc" (cond (gt (len $terms) 0) (printf "共 %d %s" (len $terms) $unit) (printf "还没有%s" $label))
 ) }}
 
 <section class="hi-sec">
