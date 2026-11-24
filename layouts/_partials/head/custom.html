@@ -1,3 +1,10 @@
+{{- /* 空标签 / 空分类页：不让搜索引擎收录 */ -}}
+{{- if eq .Kind "term" -}}
+  {{- $n := 0 -}}
+  {{- range .Pages -}}{{- if not (partial "hi/is-archived" .) -}}{{- $n = add $n 1 -}}{{- end -}}{{- end -}}
+  {{- if eq $n 0 }}<meta name="robots" content="noindex">{{ end -}}
+{{- end }}
+
 {{- /* 站点图标：浏览器标签页 / 收藏夹 / iOS 主屏 */ -}}
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="128x128" href="/img/favicon-128.png">
