@@ -1,116 +1,77 @@
 {{ define "main" }}
-{{- $all := (where site.RegularPages "Section" "posts").ByDate.Reverse -}}
 {{- $posts := slice -}}
-{{- $archived := slice -}}
-{{- range $all -}}
-    {{- if partial "hi/is-archived" . -}}{{- $archived = $archived | append . -}}{{- else -}}{{- $posts = $posts | append . -}}{{- end -}}
+{{- range where site.RegularPages "Section" "posts" -}}
+    {{- if not (partial "hi/is-archived" .) -}}{{- $posts = $posts | append . -}}{{- end -}}
 {{- end -}}
+{{- $posts = $posts.ByDate.Reverse -}}
 {{- $latest := "" -}}
 {{- with $posts -}}{{- $latest = index . 0 -}}{{- end -}}
 {{- $tagList := slice -}}
 {{- range $name, $term := site.Taxonomies.tags -}}
     {{- $visible := slice -}}
     {{- range $term.Pages -}}{{- if not (partial "hi/is-archived" .) -}}{{- $visible = $visible | append . -}}{{- end -}}{{- end -}}
-    {{- with $visible -}}{{- $tagList = $tagList | append (dict "name" $name "url" $term.Page.RelPermalink "count" (len .)) -}}{{- end -}}
-{{- end -}}
-
-{{/* ===== Hero：最新一篇日记 ===== */}}
-{{- with $latest }}
-{{- $cover := "" -}}
-{{- with findRE `<img[^>]+src="[^"]+"` .Content 1 -}}
-    {{- $cover = replaceRE `^.*?src="([^"]+)".*$` "$1" (index . 0) -}}
-{{- end }}
-<a class="hx-hero{{ if $cover }} hx-hero--photo{{ end }}" href="{{ .RelPermalink }}?from=diary">
-    {{- with $cover }}<span class="hx-hero__bg" style="--hx-cover:url('{{ . }}')"></span>{{ end }}
-    <span class="hx-hero__inner">
-        <span class="hx-hero__eyebrow">最新日记 · {{ .Date.Format "2006-01-02" }}</span>
-        <span class="hx-hero__title">{{ .Title }}</span>
-        <span class="hx-hero__desc">{{ .Summary | plainify | truncate 90 }}</span>
-        <span class="hx-hero__cta">阅读全文 →</span>
-    </span>
-</a>
-{{- end }}
-
-{{/* ===== 数据 ===== */}}
-<div class="hx-stats">
-    <div class="hx-stat"><b>{{ len $posts }}</b><span>篇日记</span></div>
-    <div class="hx-stat"><b>{{ len $archived }}</b><span>篇归档</span></div>
-    <div class="hx-stat"><b>{{ len $tagList }}</b><span>个标签</span></div>
-</div>
-<p class="hx-motto">慎终如始，则无败事</p>
-
-{{/* ===== 快捷入口 ===== */}}
-<nav class="hx-tiles">
-    <a class="hx-tile" href="{{ "/all/" | relLangURL }}">
-        <span class="hx-tile__ico">📚</span>
-        <span class="hx-tile__txt"><b>全部文章</b><em>{{ len $all }} 篇（含归档）</em></span>
-    </a>
-    <a class="hx-tile" href="{{ "/archives/" | relLangURL }}">
-        <span class="hx-tile__ico">🗂</span>
-        <span class="hx-tile__txt"><b>归档</b><em>{{ len $archived }} 篇旧日记</em></span>
-    </a>
-    <a class="hx-tile" href="{{ "/changelog/" | relLangURL }}">
-        <span class="hx-tile__ico">📝</span>
-        <span class="hx-tile__txt"><b>更新日志</b><em>站点改动记录</em></span>
-    </a>
-    <a class="hx-tile" href="https://message.huoyuu.top/" target="_blank" rel="noopener">
-        <span class="hx-tile__ico">📮</span>
-        <span class="hx-tile__txt"><b>留言板</b><em>随便说点什么</em></span>
-    </a>
-</nav>
-
-{{/* ===== 最近日记（时间线） ===== */}}
-{{- with $posts }}
-<section class="hx-sec">
-    <div class="hx-sec__head">
-        <h2>最近日记</h2>
-        <a href="{{ "/posts/" | relLangURL }}">全部日记 →</a>
-    </div>
-    <div class="hx-timeline">
-        {{- range first 6 . }}
-        <a class="hx-tl" href="{{ .RelPermalink }}?from=diary">
-            <time class="hx-tl__date">{{ .Date.Format "01-02" }}</time>
-            <span class="hx-tl__title">{{ .Title }}</span>
-            {{- with .Params.tags }}<span class="hx-tl__tag">#{{ index . 0 }}</span>{{ end }}
-        </a>
-        {{- end }}
-    </div>
-</section>
-{{- end }}
-
-{{/* ===== 最近的照片 ===== */}}
-{{- $photos := slice -}}
-{{- range first 8 $posts -}}
-    {{- $p := . -}}
-    {{- with findRE `<img[^>]+src="[^"]+"` $p.Content 1 -}}
-        {{- $photos = $photos | append (dict "url" (replaceRE `^.*?src="([^"]+)".*$` "$1" (index . 0)) "href" (printf "%s?from=diary" $p.RelPermalink) "title" $p.Title "date" ($p.Date.Format "01-02")) -}}
+    {{- with $visible -}}
+        {{- $tagList = $tagList | append (dict "name" $name "url" $term.Page.RelPermalink "count" (len .)) -}}
     {{- end -}}
 {{- end -}}
-{{- with $photos }}
-<section class="hx-sec">
-    <div class="hx-sec__head">
-        <h2>最近的照片</h2>
-        <span class="hx-sec__more">{{ len . }} 张</span>
+
+<section class="hi-hero">
+    <p class="hi-hero__eyebrow">HUO YU · 个人站点</p>
+    <h1 class="hi-hero__title">{{ site.Title }}</h1>
+    <p class="hi-hero__desc">慎终如始，则无败事</p>
+
+    <div class="hi-stats">
+        <div class="hi-stat"><b>{{ len $posts }}</b><span>篇日记</span></div>
+        {{ with $latest }}
+        <div class="hi-stat"><b>{{ .Date.Format "2006-01-02" }}</b><span>最近更新</span></div>
+        {{ end }}
+        <div class="hi-stat"><b>{{ len $tagList }}</b><span>个标签</span></div>
     </div>
-    <div class="hx-photos">
-        {{- range . }}
-        <a class="hx-photo" href="{{ .href }}" title="{{ .title }}" style="background-image:url('{{ .url }}')">
-            <span class="hx-photo__date">{{ .date }}</span>
+
+    <div class="hi-actions">
+        <a class="hi-btn hi-btn--primary" href="{{ "/posts/" | relLangURL }}">日记</a>
+        <a class="hi-btn" href="{{ "/archives/" | relLangURL }}">归档</a>
+        <a class="hi-btn" href="{{ "/changelog/" | relLangURL }}">更新日志</a>
+        <a class="hi-btn" href="https://message.huoyuu.top/" target="_blank" rel="noopener">留言板</a>
+    </div>
+</section>
+
+{{- with first 3 $posts }}
+<section class="hi-sec">
+    <div class="hi-sec__head">
+        <h2 class="hi-sec__title">最新文章</h2>
+        <a class="hi-sec__more" href="{{ "/all/" | relLangURL }}">全部 →</a>
+    </div>
+    <div class="hi-grid">
+        {{- range . }}{{ partial "hi/post-card" (dict "page" . "from" "diary") }}{{ end }}
+    </div>
+</section>
+{{- end }}
+
+{{- if gt (len $posts) 3 }}
+<section class="hi-sec">
+    <div class="hi-sec__head">
+        <h2 class="hi-sec__title">更早一些</h2>
+    </div>
+    <div class="hi-list">
+        {{- range after 3 $posts }}
+        <a class="hi-row" href="{{ .RelPermalink }}">
+            <time class="hi-row__date">{{ .Date.Format "01-02" }}</time>
+            <span class="hi-row__title">{{ .Title }}</span>
         </a>
         {{- end }}
     </div>
 </section>
 {{- end }}
 
-{{/* ===== 标签 ===== */}}
 {{- with $tagList }}
-<section class="hx-sec">
-    <div class="hx-sec__head">
-        <h2>标签</h2>
+<section class="hi-sec">
+    <div class="hi-sec__head">
+        <h2 class="hi-sec__title">标签</h2>
     </div>
-    <div class="hx-tags">
+    <div class="hi-tags">
         {{- range . }}
-        <a class="hx-tag" href="{{ .url }}">{{ .name }}<em>{{ .count }}</em></a>
+        <a class="hi-tag" href="{{ .url }}">{{ .name }}<em>{{ .count }}</em></a>
         {{- end }}
     </div>
 </section>
