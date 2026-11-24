@@ -1,5 +1,4 @@
-{{- /* 判断一篇文章是否「归档」：front matter 的 archived=true，或者标签里带「归档」 */ -}}
+{{- /* 判断一篇文章是否「归档」：以标签为准 —— tags 里包含「归档」即归档 */ -}}
 {{- $a := false -}}
-{{- if eq .Params.archived true -}}{{- $a = true -}}{{- end -}}
 {{- with .Params.tags -}}{{- if in . "归档" -}}{{- $a = true -}}{{- end -}}{{- end -}}
 {{- return $a -}}
