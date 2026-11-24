@@ -8,7 +8,7 @@
 {{- end -}}
 <a class="hi-card" href="{{ $page.RelPermalink }}?from={{ $from }}">
     {{- with $cover }}
-    <div class="hi-card__cover" style="background-image:url('{{ . }}')"></div>
+    <img class="hi-card__cover" src="{{ . }}" alt="" loading="lazy" decoding="async">
     {{- end }}
     <div class="hi-card__body">
         <div class="hi-card__meta">
