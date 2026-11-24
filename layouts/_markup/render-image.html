@@ -1,0 +1,12 @@
+{{- /* 正文图片：优先使用 1200px 缩略图（static/img/thumbs/1200），没有再回退原图 */ -}}
+{{- $dest := .Destination -}}
+{{- $src := $dest -}}
+{{- $alt := .PlainText -}}
+{{- $title := .Title -}}
+{{- if hasPrefix $dest "/img/" -}}
+    {{- $base := strings.TrimSuffix (path.Ext $dest) (path.Base $dest) -}}
+    {{- if fileExists (printf "static/img/thumbs/1200/%s.jpg" $base) -}}
+        {{- $src = printf "/img/thumbs/1200/%s.jpg" $base -}}
+    {{- end -}}
+{{- end -}}
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
