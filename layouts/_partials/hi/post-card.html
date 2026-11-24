@@ -6,6 +6,14 @@
 {{- with findRE `<img[^>]+src="[^"]+"` $page.Content 1 -}}
     {{- $cover = replaceRE `^.*?src="([^"]+)".*$` "$1" (index . 0) -}}
 {{- end -}}
+{{- $thumb := "" -}}
+{{- if hasPrefix $cover "/img/" -}}
+    {{- $base := strings.TrimSuffix (path.Ext $cover) (path.Base $cover) -}}
+    {{- if fileExists (printf "static/img/thumbs/600/%s.jpg" $base) -}}
+        {{- $thumb = printf "/img/thumbs/600/%s.jpg" $base -}}
+    {{- end -}}
+{{- end -}}
+{{- $cover = $thumb | default $cover -}}
 <a class="hi-card" href="{{ $page.RelPermalink }}?from={{ $from }}">
     {{- with $cover }}
     <img class="hi-card__cover" src="{{ . }}" alt="" loading="lazy" decoding="async">
@@ -16,7 +24,7 @@
             {{- with $page.Params.tags }}<span class="hi-card__tag">#{{ index . 0 }}</span>{{ end }}
             {{- if partial "hi/is-archived" $page }}<span class="hi-card__badge">归档</span>{{ end }}
         </div>
-        <div class="hi-card__title">{{ $page.Title }}</div>
+        <h3 class="hi-card__title">{{ $page.Title }}</h3>
         <div class="hi-card__desc">{{ $page.Summary | plainify | truncate 52 }}</div>
     </div>
 </a>
