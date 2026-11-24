@@ -26,10 +26,11 @@ content:
         label: 草稿（勾选后前台不显示）
         type: boolean
         default: false
-      - name: archived
-        label: 归档（勾选后显示在「归档」页）
-        type: boolean
-        default: false
+      - name: tags
+        label: 标签（含「归档」即归档）
+        type: list
+        field:
+          type: string
       - name: body
         label: 正文
         type: rich-text
