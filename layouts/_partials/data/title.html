@@ -1,0 +1,23 @@
+{{- /* 覆盖主题的页面标题：标签/分类总览页用中文名，其余保持原逻辑 */ -}}
+{{- $pageTitle := .Title -}}
+{{- $siteTitle := .Site.Title -}}
+
+{{- if eq .Kind "taxonomy" -}}
+    {{- if eq .Data.Plural "categories" -}}
+        {{- $pageTitle = "分类" -}}
+    {{- else -}}
+        {{- $pageTitle = "标签" -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $paginator := partial "helper/paginator.html" . -}}
+
+{{- $title := slice -}}
+
+{{- if and $paginator $paginator.HasPrev -}}
+    {{ $title = $title | append (printf "第 %d 页" $paginator.PageNumber) }}
+{{- end -}}
+
+{{- $title = $title | append (default $siteTitle $pageTitle) -}}
+
+{{ return delimit $title " - " }}
