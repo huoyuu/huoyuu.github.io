@@ -15,11 +15,12 @@
     {{ end }}
 
     <div class="article-title-wrapper">
-        <h2 class="article-title">
+        {{- $titleTag := cond $IsList "h2" "h1" -}}
+        {{ printf "<%s class=\"article-title\">" $titleTag | safeHTML }}
             <a href="{{ $Page.RelPermalink }}">
                 {{- $Page.Title -}}
             </a>
-        </h2>
+        {{ printf "</%s>" $titleTag | safeHTML }}
     
         {{ with $Page.Params.description }}
         <h3 class="article-subtitle">
