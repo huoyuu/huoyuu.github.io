@@ -7,6 +7,7 @@ copyright = "huoyutianxia"
 theme = "stack"
 
 [params]
+  description = "活鱼的小天地 —— 日记、折腾记录与生活碎片。"
   mainSections = ["posts"]
   featuredImageField = "cover.image"
   defaultFeaturedImage = ""
