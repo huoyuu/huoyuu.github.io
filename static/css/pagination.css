@@ -1,0 +1,8 @@
+.pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin:28px 0 8px;padding:0;background:none;box-shadow:none;border-radius:0;overflow:visible}
+.pagination .page-link{flex:0 0 auto;min-width:36px;height:36px;padding:0 10px;border:1px solid var(--card-separator-color);border-radius:10px;background:var(--card-background);color:var(--card-text-color-secondary);font-size:1.4rem;line-height:1;transition:background-color .18s ease,color .18s ease,border-color .18s ease}
+.pagination .page-link:first-child,.pagination .page-link:last-child{flex:0 0 36px;padding:0}
+.pagination .page-link:hover:not(.current):not(.disabled){background:var(--card-background-selected);color:var(--card-text-color-main);border-color:var(--accent-color);opacity:1}
+.pagination .page-link.current{background:var(--accent-color);color:var(--accent-color-text);border-color:var(--accent-color);font-weight:600}
+.pagination .page-link.disabled{opacity:.35;border-color:transparent;background:transparent}
+.pagination .page-link svg{width:18px;height:18px}
+@media(max-width:767px){.pagination{gap:5px;margin:22px 0 6px}.pagination .page-link{min-width:32px;height:32px;padding:0 8px;font-size:1.3rem}.pagination .page-link:first-child,.pagination .page-link:last-child{flex-basis:32px}}
